@@ -412,7 +412,7 @@
 
     <!-- Java Script
     ================================================== -->
-    <script src="js/plugins.js"></script>
+   <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <script>
     document.getElementById('contact-form').addEventListener('submit', function(event) {
@@ -443,13 +443,15 @@
             return false;
         }
 
-        // Construct the mailto URL
-        var mailtoLink = 'mailto:your-adwaithroffical@gmail.com' +
-                         '?subject=' + encodeURIComponent(subject) +
-                         '&body=' + encodeURIComponent('Name: ' + name + '\n' + 'Email: ' + email + '\n' + 'Message: ' + message);
-
-        // Redirect to Gmail
-       
+        // If all validations pass, proceed with sending the email via EmailJS
+        emailjs.sendForm('contact_service', 'contact_form', this)
+            .then(() => {
+                alert('Your message has been sent successfully!');
+                console.log('SUCCESS!');
+            }, (error) => {
+                alert('There was an error sending your message. Please try again later.');
+                console.log('FAILED...', error);
+            });
     });
 </script>
 
@@ -462,20 +464,7 @@
         });
     })();
 </script>
-<script type="text/javascript">
-    window.onload = function() {
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // these IDs from the previous steps
-            emailjs.sendForm('contact_service', 'contact_form', this)
-                .then(() => {
-                    console.log('SUCCESS!');
-                }, (error) => {
-                    console.log('FAILED...', error);
-                });
-        });
-    }
-</script>
+
 
     
 </body>
